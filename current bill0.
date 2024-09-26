@@ -1,0 +1,39 @@
+class ElectricityBill:
+    def __init__(self, customer_name, units_consumed):
+        self.customer_name = customer_name
+        self.units_consumed = units_consumed
+        self.rate_per_unit = self.set_rate()
+        self.total_bill = self.calculate_bill()
+
+    def set_rate(self):
+        # Free electricity for consumption below 200 units
+        if self.units_consumed < 200:
+            return 0.0  # free for consumption below 200 units
+        elif self.units_consumed <= 300:
+            return 2.0  # rate per unit for 200 to 300 units
+        else:
+            return 3.0  # rate per unit for above 300 units
+
+    def calculate_bill(self):
+        return self.units_consumed * self.rate_per_unit
+
+    def generate_bill(self):
+        bill_details = (
+            f"Electricity Bill for {self.customer_name}\n"
+            f"Units Consumed: {self.units_consumed}\n"
+            f"Rate per Unit: ${self.rate_per_unit:.2f}\n"
+            f"Total Bill: ${self.total_bill:.2f}\n"
+        )
+        return bill_details
+
+
+def main():
+    customer_name = input("Enter the customer's name: ")
+    units_consumed = float(input("Enter the number of units consumed: "))
+
+    bill = ElectricityBill(customer_name, units_consumed)
+    print(bill.generate_bill())
+
+
+if __name__ == "__main__":
+    main()
